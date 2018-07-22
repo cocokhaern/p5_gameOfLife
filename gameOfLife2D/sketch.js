@@ -6,9 +6,9 @@ var count = 0;
 
 var textPlay = "PAUSE";
 
-// Parametres
-var globalSize = 90;
-var slowSize = 2;
+// Parameters
+var globalSize = 40;
+var slowSize = 4;
 var withInter = true;
 
 function setup() {
@@ -17,13 +17,12 @@ function setup() {
   background(255);
   noSmooth();
   noStroke();
-  myGrid = new Grid(globalSize, globalSize, height / globalSize);
+  myGrid = new GridHexa(globalSize, globalSize, height / globalSize);
   myGrid.initialize();
   myGrid.drawGrid();
 }
 
 function draw() {
-
   displayInfos();
   let fpsControl = frameCount % slowSize;
   if (running && fpsControl == 0) {

@@ -1,17 +1,14 @@
-class Grid {
+class GridSquare extends Grid2D {
 
     constructor(numX, numY, cellSize) {
-        this.numX = numX;
-        this.numY = numY;
-        this.cellSize = cellSize;
-        this.grid = [];
+        super(numX, numY, cellSize);
     }
 
     initialize() {
         for (let x = 0; x < this.numX; x++) {
             this.grid[x] = [];
             for (let y = 0; y < this.numY; y++) {
-                this.grid[x][y] = new Cell(x, y, false);
+                this.grid[x][y] = new CellSquare(x, y, false);
             }
         }
         this.grid[15][15].state = true;
@@ -56,18 +53,10 @@ class Grid {
         this.grid[28][20].state = true;
     }
 
-    prepareEvolution() {
-        this.grid.forEach(ligne => ligne.forEach(cell => cell.evolveCell(this.howManyNeighbours(cell.x, cell.y))));
-    }
-
-    commitEvolution() {
-        this.grid.forEach(ligne => ligne.forEach(cell => cell.commit()));
-    }
-
     howManyNeighbours(nX, nY) {
         let nbVoisins = 0;
-        for (var x = (nX - 1); x <= (nX + 1); x++) {
-            for (var y = (nY - 1); y <= (nY + 1); y++) {
+        for (let x = (nX - 1); x <= (nX + 1); x++) {
+            for (let y = (nY - 1); y <= (nY + 1); y++) {
                 if (x >= 0 && y >= 0 && x < this.numX && y < this.numY) {
                     if (!(x == nX && y == nY) && this.grid[x][y].state == true) {
                         nbVoisins = nbVoisins + 1;
@@ -76,14 +65,6 @@ class Grid {
             }
         }
         return nbVoisins;
-    }
-
-    drawGrid() {
-        this.grid.forEach(ligne => ligne.forEach(cell => cell.drawCell(this.cellSize)));
-    }
-
-    drawFutureGrid() {
-        this.grid.forEach(ligne => ligne.forEach(cell => cell.drawFutureCell(this.cellSize)));
     }
 
     readClick() {
