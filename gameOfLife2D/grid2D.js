@@ -7,7 +7,6 @@ class Grid2D {
         this.grid = [];
     }
 
-
     prepareEvolution() {
         this.grid.forEach(ligne => ligne.forEach(cell => cell.evolveCell(this.howManyNeighbours(cell.x, cell.y))));
     }

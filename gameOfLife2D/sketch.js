@@ -8,48 +8,56 @@ var textPlay = "PAUSE";
 
 // Parameters
 var globalSize = 40;
-var slowSize = 4;
+var slowSize = 2;
 var withInter = true;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(60);
-  background(255);
   noSmooth();
-  noStroke();
-  myGrid = new GridHexa(globalSize, globalSize, height / globalSize);
+
+  background(100);
+  stroke(150);
+  strokeWeight(0.5);
+
+  myGrid = new GridHexa(globalSize, globalSize, (height / (globalSize+0.5))*(2/sqrt(3)));
   myGrid.initialize();
   myGrid.drawGrid();
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  myGrid.cellSize = height / globalSize;
 }
 
 function draw() {
   displayInfos();
   let fpsControl = frameCount % slowSize;
   if (running && fpsControl == 0) {
+    background(100);
+    stroke(150);
+    strokeWeight(0.5);
     if (withInter) {
       runSimWithInter();
     } else {
       runSimNoInter();
     }
   }
-  
 }
 
-function displayInfos(){
+function displayInfos() {
+  noStroke();
   fill(100);
-  rect(height, 0, width-height, height);
+  rect(height, 0, width - height, height);
   fill(255);
-  textSize(height/12);
-  text(textPlay, height+40, (height/10));
-  text("Iteration : " + floor(count/2), height+40, 2*(height/10));
-  
-
+  textSize(height / 12);
+  text(textPlay, height + 40, (height / 10));
+  text("Iteration : " + floor(count / 2), height + 40, 2 * (height / 10));
 }
 
 
 function runSimWithInter() {
-  let pair = count % 2;
-  if (pair == 0) {
+  if (count % 2 == 0) {
     myGrid.drawGrid();
     myGrid.prepareEvolution();
     count = count + 1;
@@ -75,13 +83,10 @@ function keyPressed() {
   } else if (keyCode === ENTER && running) {
     running = false;
     textPlay = "PAUSE";
-   }
+  }
 }
 
 function mouseClicked() {
   myGrid.readClick();
   myGrid.drawGrid();
-
 }
-
-

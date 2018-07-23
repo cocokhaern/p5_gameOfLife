@@ -55,20 +55,49 @@ class GridHexa extends Grid2D {
 
     howManyNeighbours(nX, nY) {
         let nbVoisins = 0;
-        for (let x = (nX - 1); x <= nX; x++) {
-            for (let y = (nY - 1); y <= (nY + 1); y++) {
-                if (x >= 0 && y >= 0 && x < this.numX && y < this.numY) {
-                    if (!(x == nX && y == nY) && this.grid[x][y].state == true) {
-                        nbVoisins = nbVoisins + 1;
+        // console.log(`\nPour : nX:${nX},nY:${nY}`)
+
+        if (nY % 2 == 0) {
+            for (let x = nX; x <= (nX + 1); x++) {
+                for (let y = (nY - 1); y <= (nY + 1); y++) {
+                    // console.log(`       ...x:${x},y:${y}...`)
+                    if (x >= 0 && y >= 0 && x < this.numX && y < this.numY) {
+                        if (!(x == nX && y == nY) && this.grid[x][y].state == true) {
+                            // console.log(`   Voisin! : x:${x},y:${y}`);
+                            nbVoisins = nbVoisins + 1;
+                        }
                     }
                 }
             }
-        }
-        if ((nX + 1) < this.numX) {
-            if (this.grid[nX + 1][nY].state == true) {
-                nbVoisins = nbVoisins + 1;
+            if ((nX - 1) >= 0) {
+                // console.log(`       ...x:${nX - 1},y:${nY}...`)
+                if (this.grid[nX - 1][nY].state == true) {
+                    // console.log(`   Voisin! : x:${nX - 1},y:${nY}`);
+                    nbVoisins = nbVoisins + 1;
+                }
+            }
+        } else {
+            for (let x = (nX - 1); x <= nX; x++) {
+                for (let y = (nY - 1); y <= (nY + 1); y++) {
+                    // console.log(`       ...x:${x},y:${y}...`)
+                    if (x >= 0 && y >= 0 && x < this.numX && y < this.numY) {
+                        if (!(x == nX && y == nY) && this.grid[x][y].state == true) {
+                            // console.log(`   Voisin! : x:${x},y:${y}`);
+                            nbVoisins = nbVoisins + 1;
+                        }
+                    }
+                }
+            }
+            if ((nX + 1) < this.numX) {
+                // console.log(`       ...x:${nX + 1},y:${nY}...`)
+                if (this.grid[nX + 1][nY].state == true) {
+                    // console.log(`   Voisin! : x:${nX + 1},y:${nY}`);
+                    nbVoisins = nbVoisins + 1;
+                }
             }
         }
+
+        // console.log(`   Total voisins pour nX:${nX},nY:${nY} : ${nbVoisins}`);
         return nbVoisins;
     }
 
