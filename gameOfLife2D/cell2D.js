@@ -10,7 +10,7 @@ class Cell2D {
 
     evolveCell(nbVoisins) {
         if (this.state == false) {
-            if (nbVoisins >= 2 && nbVoisins <= 2) {
+            if (nbVoisins >= 3 && nbVoisins <= 3) {
                 this.futureState = true;
             }
         } else {

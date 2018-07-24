@@ -6,9 +6,9 @@ class CellHexa extends Cell2D {
 
     drawCell(size) {
         if (this.state == true) {
-            fill(0);
+            fill(theme.fullColor);
         } else {
-            fill(255);
+            fill(theme.emptyColor);
         }
         let coordY = size/2 + this.y * (3 / 4) * size;
         let coordX;
@@ -22,13 +22,13 @@ class CellHexa extends Cell2D {
 
     drawFutureCell(size) {
         if (this.state == true && this.futureState == true) {
-            fill(0);
+            fill(theme.fullColor);
         } else if (this.state == true && this.futureState == false) {
-            fill(255, 0, 255);
+            fill(theme.deadColor);
         } else if (this.state == false && this.futureState == true) {
-            fill(0, 255, 0);
+            fill(theme.bornColor);
         } else {
-            fill(255);
+            fill(theme.emptyColor);
         }
 
         let coordY = size/2 + this.y * (3 / 4) * size;

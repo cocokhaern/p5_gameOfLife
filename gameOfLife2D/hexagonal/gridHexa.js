@@ -104,6 +104,8 @@ class GridHexa extends Grid2D {
     readClick() {
         let cellX = ceil(mouseX / this.cellSize);
         let cellY = ceil(mouseY / this.cellSize);
-        this.grid[cellX - 1][cellY - 1].switchCell();
+        if(cellX >= 0 && cellY >= 0 && cellX < this.numX && cellY < this.numY){
+            this.grid[cellX - 1][cellY - 1].switchCell();
+        }
     }
 }

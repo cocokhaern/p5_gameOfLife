@@ -1,92 +1,67 @@
-var myGrid;
+var gameoflife;
 
-var framecompt = 0;
-var running = false;
-var count = 0;
+// General Options
+var options = {
+  gridType: "original",
+  globalSize: 80,
+  slowSize: 2,
+  withInter: false
+};
 
-var textPlay = "PAUSE";
-
-// Parameters
-var globalSize = 40;
-var slowSize = 2;
-var withInter = true;
+var theme;
 
 function setup() {
+  gameoflife = new GameOfLife(options);
   createCanvas(windowWidth, windowHeight);
+
+ theme = {
+    bgColor: color(70, 70, 70),
+    strokeColor: color(0, 0, 0),
+    bornColor: color(0, 255, 0),
+    deadColor: color(255, 0, 255),
+    fullColor: color(255, 255, 255),
+    emptyColor: color(0, 0, 0)
+  };
+
   frameRate(60);
   noSmooth();
-
-  background(100);
-  stroke(150);
+  background(theme.bgColor);
+  stroke(theme.strokeColor);
   strokeWeight(0.5);
 
-  myGrid = new GridHexa(globalSize, globalSize, (height / (globalSize+0.5))*(2/sqrt(3)));
-  myGrid.initialize();
-  myGrid.drawGrid();
+  gameoflife.initializeGame();
 }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-  myGrid.cellSize = height / globalSize;
+  gameoflife.grid.cellSize = height / globalSize;
 }
 
 function draw() {
-  displayInfos();
-  let fpsControl = frameCount % slowSize;
-  if (running && fpsControl == 0) {
-    background(100);
-    stroke(150);
+  gameoflife.displayInfos();
+  let fpsControl = frameCount % options.slowSize;
+  if (gameoflife.running && fpsControl == 0) {
+    background(theme.bgColor);
+    stroke(theme.strokeColor);
     strokeWeight(0.5);
-    if (withInter) {
-      runSimWithInter();
+    if (options.withInter) {
+      gameoflife.runSimWithInter();
     } else {
-      runSimNoInter();
+      gameoflife.runSimNoInter();
     }
   }
 }
 
-function displayInfos() {
-  noStroke();
-  fill(100);
-  rect(height, 0, width - height, height);
-  fill(255);
-  textSize(height / 12);
-  text(textPlay, height + 40, (height / 10));
-  text("Iteration : " + floor(count / 2), height + 40, 2 * (height / 10));
-}
-
-
-function runSimWithInter() {
-  if (count % 2 == 0) {
-    myGrid.drawGrid();
-    myGrid.prepareEvolution();
-    count = count + 1;
-  } else {
-    myGrid.drawFutureGrid();
-    myGrid.commitEvolution();
-    count = count + 1;
-  }
-}
-
-function runSimNoInter() {
-  myGrid.drawGrid();
-  myGrid.prepareEvolution();
-  myGrid.commitEvolution();
-  count = count + 2;
-}
-
 
 function keyPressed() {
-  if (keyCode === ENTER && !running) {
-    running = true;
-    textPlay = "PLAY";
-  } else if (keyCode === ENTER && running) {
-    running = false;
-    textPlay = "PAUSE";
+  if (keyCode === ENTER && !gameoflife.running) {
+    gameoflife.running = true;
+  } else if (keyCode === ENTER && gameoflife.running) {
+    gameoflife.running = false;
   }
 }
 
 function mouseClicked() {
-  myGrid.readClick();
-  myGrid.drawGrid();
+  gameoflife.grid.readClick();
+  gameoflife.grid.drawGrid();
 }
