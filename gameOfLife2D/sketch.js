@@ -1,12 +1,9 @@
 var gameoflife;
 
 // General Options
-var options = {
-  gridType: "original",
-  globalSize: 80,
-  slowSize: 2,
-  withInter: false
-};
+options.globalSize = 80;
+options.slowSize = 2;
+options.withInter = true;
 
 var theme;
 
