@@ -5,23 +5,33 @@ class Grid2D {
         this.numY = numY;
         this.cellSize = cellSize;
         this.grid = [];
+        this.changingCells = [];
     }
 
     prepareEvolution() {
-        this.grid.forEach(ligne => ligne.forEach(cell => cell.evolveCell(this.howManyNeighbours(cell.x, cell.y))));
+        this.changingCells = [];
+        this.grid.forEach(ligne => ligne.forEach(cell => cell.evolveCell()));
     }
 
     commitEvolution() {
-        this.grid.forEach(ligne => ligne.forEach(cell => cell.commit()));
+        this.changingCells.forEach(cell => cell.switchCell());
     }
 
-    drawGrid() {
+    drawGridInit() {
+        this.grid.forEach(ligne => ligne.forEach(cell => cell.drawCell(this.cellSize)));
+    }
+
+    drawChangingGrid() {
+        // console.log(this.changingCells);
+        this.changingCells.forEach(cell => cell.drawCell(this.cellSize));
+    }
+
+    drawAllGrid() {
         this.grid.forEach(ligne => ligne.forEach(cell => cell.drawCell(this.cellSize)));
     }
 
     drawFutureGrid() {
-        this.grid.forEach(ligne => ligne.forEach(cell => cell.drawFutureCell(this.cellSize)));
+        this.changingCells.forEach(cell => cell.drawFutureCell(this.cellSize));
     }
-
 
 }

@@ -1,36 +1,44 @@
 class Cell2D {
 
-    constructor(x, y, state) {
+    constructor(x, y, alive, parentGrid) {
         this.x = x;
         this.y = y;
-        this.state = state;
-        this.futureState = false;
+        this.alive = alive;
+        this.nbOfNeighbours = 0;
+        this.parentGrid = parentGrid;
     }
 
 
-    evolveCell(nbVoisins) {
-        if (this.state == false) {
-            if (nbVoisins >= 3 && nbVoisins <= 3) {
-                this.futureState = true;
+    evolveCell() {
+        // console.log(`  evolveCell : x=${this.x}, y=${this.y}, alive=${this.alive}, nbNeig=${this.nbOfNeighbours} `);
+        if (this.alive) {
+            if (this.nbOfNeighbours < options.minNeighToLive || this.nbOfNeighbours > options.maxNeighToLive) {
+                this.flagIsChanging();
             }
         } else {
-            if (nbVoisins >= 2 && nbVoisins <= 3) {
-                this.futureState = true;
+            if (this.nbOfNeighbours >= options.minNeighToBorn && this.nbOfNeighbours <= options.maxNeighToBorn) {
+                this.flagIsChanging();
             }
         }
     }
 
     switchCell() {
-        if (this.state == false) {
-            this.state = true;
+        this.alive = !this.alive;
+        if (this.alive) {
+            this.impactNeighbours(1);
         } else {
-            this.state = false;
+            this.impactNeighbours(-1);
         }
+
+        // console.log(`  switchCell AFTER : x=${this.x}, y=${this.y}, alive=${this.alive}, nbNeig=${this.nbOfNeighbours} `);
     }
 
-    commit() {
-        this.state = this.futureState;
-        this.futureState = false;
+    changeNeighbours(whichValue) {
+        this.nbOfNeighbours = this.nbOfNeighbours + whichValue;
+    }
+
+    flagIsChanging() {
+        this.parentGrid.changingCells.push(this);
     }
 
 }

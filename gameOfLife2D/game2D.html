@@ -4,29 +4,63 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
-  <style>
-    body {
-      padding: 0;
-      margin: 0;
-    }
-  </style>
-
-  <script>
-    var options = {
-      gridType: 'original'
-    };
-  </script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="../general.css">
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
+  <script type="text/javascript" src="../general.js"></script>
   <script type="text/javascript" src="grid2D.js"></script>
   <script type="text/javascript" src="cell2D.js"></script>
+  <script type="text/javascript" src="utils.js"></script>
+  <script type="text/javascript" src="hexagonal/gridHexa.js"></script>
+  <script type="text/javascript" src="hexagonal/cellHexa.js"></script>
   <script type="text/javascript" src="original/gridSquare.js"></script>
   <script type="text/javascript" src="original/cellSquare.js"></script>
   <script type="text/javascript" src="../gameoflife.js"></script>
-  <script type="text/javascript" src="sketch.js"></script>
+
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">Khaern's Game of Life</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <button class="btn btn-outline-success my-2 my-sm-0 " type="button" onclick="setup()">Restart</button>
+    <button class="btn btn-outline-success my-2 my-sm-0 " type="button" onclick="setPause()">Play/Pause</button>
+
+    <div class="collapse navbar-collapse " id="navbarSupportedContent ">
+      <ul class="navbar-nav mr-auto ">
+        <li class="nav-item dropdown ">
+          <a class="nav-link dropdown-toggle " href="# " id="navbarDropdown " role="button " data-toggle="dropdown
+      " aria-haspopup="true " aria-expanded="false ">
+            Type
+          </a>
+          <div class="dropdown-menu " aria-labelledby="navbarDropdown ">
+            <a class="dropdown-item " href="# " onclick="setGridType( 'original'); ">Original</a>
+            <a class="dropdown-item " href="# " onclick="setGridType( 'hexa'); ">Hexagonal</a>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0 ">
+        <input class="form-control mr-sm-1 " type="number " placeholder="Min v die " aria-label="Min v die ">
+        <input class="form-control mr-sm-1 " type="number " placeholder="Max v die " aria-label="Max v die ">
+        <input class="form-control mr-sm-1 " type="number " placeholder="Min v born " aria-label="Min v born ">
+        <input class="form-control mr-sm-1 " type="number " placeholder="Max v born " aria-label="Max v born ">
+        <button class="btn btn-outline-success my-2 my-sm-0 " type="submit ">Apply</button>
+      </form>
+    </div>
+  </nav>
+
+  <div class="container col-sm-12 ">
+    <div id="sketch-holder">
+    </div>
+  </div>
+
+
+  <script type="text/javascript " src="sketch.js "></script>
 </body>
 
 </html>
