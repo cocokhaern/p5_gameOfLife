@@ -9,11 +9,8 @@ Just test it here !
 https://cocokhaern.github.io/p5_gameOfLife/
 
 ### TODO :
-* fix the mouse-positioning on hexagons
-* add a x-y loop mode
-* integrate canvas into html and add a navbar
+* mouse drawing
 * add parameters to the navbar (size, inter-state or not, loop mode or not, color themes, life and death conditions)
-* make a start button
 * improve responsive and control on phone screen
 
 
