@@ -22,43 +22,27 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="#">Khaern's Game of Life</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-      aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <button class="btn btn-outline-success my-2 my-sm-0 " type="button" onclick="setup()">Restart</button>
-    <button class="btn btn-outline-success my-2 my-sm-0 " type="button" onclick="setPause()">Play/Pause</button>
-
-    <div class="collapse navbar-collapse " id="navbarSupportedContent ">
-      <ul class="navbar-nav mr-auto ">
-        <li class="nav-item dropdown ">
-          <a class="nav-link dropdown-toggle " href="# " id="navbarDropdown " role="button " data-toggle="dropdown
-      " aria-haspopup="true " aria-expanded="false ">
-            Type
-          </a>
-          <div class="dropdown-menu " aria-labelledby="navbarDropdown ">
-            <a class="dropdown-item " href="# " onclick="setGridType( 'original'); ">Original</a>
-            <a class="dropdown-item " href="# " onclick="setGridType( 'hexa'); ">Hexagonal</a>
-          </div>
-        </li>
-      </ul>
-      <form class="form-inline my-2 my-lg-0 ">
-        <input class="form-control mr-sm-1 " type="number " placeholder="Min v die " aria-label="Min v die ">
-        <input class="form-control mr-sm-1 " type="number " placeholder="Max v die " aria-label="Max v die ">
-        <input class="form-control mr-sm-1 " type="number " placeholder="Min v born " aria-label="Min v born ">
-        <input class="form-control mr-sm-1 " type="number " placeholder="Max v born " aria-label="Max v born ">
-        <button class="btn btn-outline-success my-2 my-sm-0 " type="submit ">Apply</button>
-      </form>
-    </div>
-  </nav>
-
-  <div class="container col-sm-12 ">
-    <div id="sketch-holder">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2">
+        <a class="navbar-brand" href="../index.html">Khaern's Game of Life</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <button class="btn btn-outline-success my-2 my-sm-0 " type="button" onclick="setup()">Restart</button>
+        <button class="btn btn-outline-success my-2 my-sm-0 " type="button" onclick="setPause()">Play/Pause</button>
+        <form class="form-inline my-2 my-lg-0 ">
+          <input class="form-control mr-sm-1 " type="number " placeholder="Min v die " aria-label="Min v die ">
+          <input class="form-control mr-sm-1 " type="number " placeholder="Max v die " aria-label="Max v die ">
+          <input class="form-control mr-sm-1 " type="number " placeholder="Min v born " aria-label="Min v born ">
+          <input class="form-control mr-sm-1 " type="number " placeholder="Max v born " aria-label="Max v born ">
+          <button class="btn btn-outline-success my-2 my-sm-0 " type="submit ">Apply</button>
+        </form>
+      </div>
+      <div id="sketch-holder" class="col-sm-10"></div>
     </div>
   </div>
-
 
   <script type="text/javascript " src="sketch.js "></script>
 </body>

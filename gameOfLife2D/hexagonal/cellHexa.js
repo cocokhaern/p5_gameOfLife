@@ -4,37 +4,19 @@ class CellHexa extends Cell2D {
         super(x, y, alive, parentGrid);
     }
 
-    drawCell(size) {
-        if (this.alive) {
-            fill(theme.fullColor);
-        } else {
-            fill(theme.emptyColor);
-        }
-        let coordY = size / 2 + this.y * (3 / 4) * size;
+    computeCoordX(size) {
         let coordX;
         if ((this.y % 2) == 0) {
             coordX = (sqrt(3) / 2) * size + this.x * ((sqrt(3) / 2) * size);
         } else {
             coordX = (sqrt(3) / 4) * size + this.x * ((sqrt(3) / 2) * size);
         }
-        Utils.polygon(coordX, coordY, size / 2, 6);
+        return coordX;
     }
 
-    drawFutureCell(size) {
-        if (this.alive) {
-            fill(theme.bornColor);
-        } else {
-            fill(theme.deadColor);
-        }
-
+    computeCoordY(size) {
         let coordY = size / 2 + this.y * (3 / 4) * size;
-        let coordX;
-        if ((this.y % 2) == 0) {
-            coordX = (sqrt(3) / 2) * size + this.x * ((sqrt(3) / 2) * size);
-        } else {
-            coordX = (sqrt(3) / 4) * size + this.x * ((sqrt(3) / 2) * size);
-        }
-        Utils.polygon(coordX, coordY, size / 2, 6);
+        return coordY;
     }
 
     impactNeighbours(whichValue) {
@@ -45,17 +27,17 @@ class CellHexa extends Cell2D {
         let Ymoins1 = (y == 0 ? (this.parentGrid.numY - 1) : y - 1);
         let Yplus1 = (y == (this.parentGrid.numY - 1) ? 0 : y + 1);
 
-        this.parentGrid.grid[x][Ymoins1].changeNeighbours(whichValue);
-        this.parentGrid.grid[x][Yplus1].changeNeighbours(whichValue);
-        this.parentGrid.grid[Xmoins1][y].changeNeighbours(whichValue);
-        this.parentGrid.grid[Xplus1][y].changeNeighbours(whichValue);
+        this.parentGrid.grid[x][Ymoins1].nbOfNeighbours += whichValue;
+        this.parentGrid.grid[x][Yplus1].nbOfNeighbours += whichValue;
+        this.parentGrid.grid[Xmoins1][y].nbOfNeighbours += whichValue;
+        this.parentGrid.grid[Xplus1][y].nbOfNeighbours += whichValue;
 
         if (y % 2 == 0) {
-            this.parentGrid.grid[Xplus1][Ymoins1].changeNeighbours(whichValue);
-            this.parentGrid.grid[Xplus1][Yplus1].changeNeighbours(whichValue);
+            this.parentGrid.grid[Xplus1][Ymoins1].nbOfNeighbours += whichValue;
+            this.parentGrid.grid[Xplus1][Yplus1].nbOfNeighbours += whichValue;
         } else {
-            this.parentGrid.grid[Xmoins1][Ymoins1].changeNeighbours(whichValue);
-            this.parentGrid.grid[Xmoins1][Yplus1].changeNeighbours(whichValue);
+            this.parentGrid.grid[Xmoins1][Ymoins1].nbOfNeighbours += whichValue;
+            this.parentGrid.grid[Xmoins1][Yplus1].nbOfNeighbours += whichValue;
         }
 
     }
