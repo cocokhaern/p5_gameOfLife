@@ -34,9 +34,13 @@ class GameOfLife {
 
   runSimWithInter() {
     if (this.count % 2 == 0) {
-      this.printBufferBackground();
       this.clearBufferGrid();
-      this.myGrid.drawLivingGrid(this.myGrid.bufGrid);
+      if (this.myGrid.borningCellsCounter + this.myGrid.survivingCells.length <= this.myGrid.changingCells.length) {
+        this.printBufferBackground();
+        this.myGrid.drawLivingGrid(this.myGrid.bufGrid);
+      } else {
+        this.myGrid.drawChangingGrid(this.myGrid.bufGrid);
+      }
       this.printBufferGrid();
       this.count = this.count + 1;
     } else {
@@ -49,13 +53,16 @@ class GameOfLife {
     }
   }
 
-
   runSimNoInter() {
-    this.printBufferBackground();
     this.clearBufferGrid();
     this.myGrid.prepareEvolution();
     this.myGrid.commitEvolution();
-    this.myGrid.drawLivingGrid(this.myGrid.bufGrid);
+    if (this.myGrid.borningCellsCounter + this.myGrid.survivingCells.length <= this.myGrid.changingCells.length) {
+      this.printBufferBackground();
+      this.myGrid.drawLivingGrid(this.myGrid.bufGrid);
+    } else {
+      this.myGrid.drawChangingGrid(this.myGrid.bufGrid);
+    }
     this.printBufferGrid();
     this.count = this.count + 2;
   }

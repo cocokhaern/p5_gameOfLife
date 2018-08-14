@@ -4,46 +4,128 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+    crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
     crossorigin="anonymous">
   <link rel="stylesheet" href="../general.css">
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
-  <script type="text/javascript" src="../general.js"></script>
-  <script type="text/javascript" src="grid2D.js"></script>
-  <script type="text/javascript" src="cell2D.js"></script>
-  <script type="text/javascript" src="utils.js"></script>
-  <script type="text/javascript" src="hexagonal/gridHexa.js"></script>
-  <script type="text/javascript" src="hexagonal/cellHexa.js"></script>
-  <script type="text/javascript" src="original/gridSquare.js"></script>
-  <script type="text/javascript" src="original/cellSquare.js"></script>
-  <script type="text/javascript" src="../gameoflife.js"></script>
-
 </head>
 
 <body>
   <div class="container-fluid">
     <div class="row">
+
       <div class="col-sm-2">
-        <a class="navbar-brand" href="../index.html">Khaern's Game of Life</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-          aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <button class="btn btn-outline-success my-2 my-sm-0 " type="button" onclick="setup()">Restart</button>
-        <button class="btn btn-outline-success my-2 my-sm-0 " type="button" onclick="setPause()">Play/Pause</button>
-        <form class="form-inline my-2 my-lg-0 ">
-          <input class="form-control mr-sm-1 " type="number " placeholder="Min v die " aria-label="Min v die ">
-          <input class="form-control mr-sm-1 " type="number " placeholder="Max v die " aria-label="Max v die ">
-          <input class="form-control mr-sm-1 " type="number " placeholder="Min v born " aria-label="Min v born ">
-          <input class="form-control mr-sm-1 " type="number " placeholder="Max v born " aria-label="Max v born ">
-          <button class="btn btn-outline-success my-2 my-sm-0 " type="submit ">Apply</button>
+
+        <a class="navbar-brand" href="../index.html">
+          <i class="fas fa-home"></i>
+          Khaern's
+          <strong>Game of Life</strong>
+        </a>
+
+        <hr>
+        <form>
+
+          <div class="form-row my-2">
+            <div class="col">
+              <button class="btn btn-block btn-outline-danger" type="button" onclick="start();">
+                <i class="fas fa-sync-alt"></i> Restart
+              </button>
+            </div>
+
+            <div class="col">
+              <button id="playButton" class="btn btn-block btn-success" type="button" onclick="setPause();">
+                <i class="fas fa-play"></i> Play
+              </button>
+              <button id="pauseButton" class="btn btn-block btn-secondary" type="button" onclick="setPause();">
+                <i class="fas fa-pause"></i> Pause
+              </button>
+            </div>
+          </div>
+
+          <div class="form-row my-2 border">
+            <div class="col">
+              <div class="form-group">
+                <label for="minNeighToLiveSlider">Min. to live :
+                  <i id="minNeighToLiveOutput"></i>
+                </label>
+                <input type="range" min="0" class="form-control-range" id="minNeighToLiveSlider">
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="form-group">
+                <label for="maxNeighToLiveSlider">Max. to live :
+                  <i id="maxNeighToLiveOutput"></i>
+                </label>
+                <input type="range" class="form-control-range" id="maxNeighToLiveSlider">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row my-2 border">
+            <div class="col">
+              <div class="form-group">
+                <label for="minNeighToBornSlider">Min. to born :
+                  <i id="minNeighToBornOutput"></i>
+                </label>
+                <input type="range" min="0" class="form-control-range" id="minNeighToBornSlider">
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="form-group">
+                <label for="maxNeighToBornSlider">Max. to born :
+                  <i id="maxNeighToBornOutput"></i>
+                </label>
+                <input type="range" class="form-control-range" id="maxNeighToBornSlider">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row my-2 border">
+            <div class="col">
+              <div class="form-group">
+                <label for="slowFactorSlider">Slow factor :
+                  <i id="slowFactorOutput"></i>
+                </label>
+                <input type="range" min="1" max="60" class="form-control-range" id="slowFactorSlider">
+              </div>
+            </div>
+          </div>
+          <div class="form-row my-2 border">
+            <div class="col">
+              <div class="form-group">
+                <label for="globalSize">Grid size :</label>
+                <input type="number" min="2" class="form-control" id="globalSize">
+              </div>
+            </div>
+            <div class="col ">
+              <button class="btn btn-outline-secondary " type="button" onclick="setGlobalSize();">Apply</button>
+            </div>
+          </div>
         </form>
       </div>
-      <div id="sketch-holder" class="col-sm-10"></div>
+
+      <div id="sketch-holder" class="col-sm-10 "></div>
+
     </div>
   </div>
 
+  <script type="text/javascript " src="grid2D.js "></script>
+  <script type="text/javascript " src="cell2D.js "></script>
+  <script type="text/javascript " src="utils.js "></script>
+  <script type="text/javascript " src="hexagonal/gridHexa.js "></script>
+  <script type="text/javascript " src="hexagonal/cellHexa.js "></script>
+  <script type="text/javascript " src="original/gridSquare.js "></script>
+  <script type="text/javascript " src="original/cellSquare.js "></script>
+  <script type="text/javascript " src="../gameoflife.js "></script>
+  <script type="text/javascript " src="../general.js "></script>
+  <script>
+    loadParametersAndStuff();
+  </script>
   <script type="text/javascript " src="sketch.js "></script>
 </body>
 

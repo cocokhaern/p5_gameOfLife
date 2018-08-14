@@ -9,7 +9,6 @@ class Cell2D {
     }
 
     drawCell(size, buffer) {
-        // console.log(buffer);
         if (this.alive) {
             buffer.image(this.parentGrid.bufLivingCell, this.computeCoordX(size), this.computeCoordY(size));
         } else {
@@ -38,6 +37,7 @@ class Cell2D {
         } else {
             if (this.nbOfNeighbours >= options.minNeighToBorn && this.nbOfNeighbours <= options.maxNeighToBorn) {
                 this.flagIsChanging();
+                this.parentGrid.borningCellsCounter += 1;
                 // console.log(`  ... BORN!`);
             }
         }

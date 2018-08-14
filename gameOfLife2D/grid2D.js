@@ -7,6 +7,7 @@ class Grid2D {
         this.grid = [];
         this.changingCells = [];
         this.survivingCells = [];
+        this.borningCellsCounter = 0;
 
         this.bufBackgroundGrid = createGraphics(numX * cellSize, numY * cellSize);
         this.bufBackgroundGrid.noSmooth();
@@ -38,12 +39,19 @@ class Grid2D {
     prepareEvolution() {
         this.changingCells = [];
         this.survivingCells = [];
+        this.borningCellsCounter = 0;
         this.grid.forEach(ligne => ligne.forEach(cell => cell.evolveCell()));
     }
 
     commitEvolution() {
         // console.log(this.changingCells);
         this.changingCells.forEach(cell => cell.switchCell());
+    }
+
+    drawChangingGrid(buffer) {
+        this.changingCells.forEach(cell => {
+            cell.drawCell(this.cellSize, buffer);
+        });
     }
 
     drawLivingGrid(buffer) {

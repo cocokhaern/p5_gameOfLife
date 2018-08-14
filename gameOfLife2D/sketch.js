@@ -1,9 +1,9 @@
 var gameoflife;
+var myCanvas
 
 function setup() {
-  gameoflife = new GameOfLife(options);
   let maxDimension = min(10 * windowWidth / 12, windowHeight);
-  var myCanvas = createCanvas(10 * windowWidth / 12, windowHeight);
+  myCanvas = createCanvas(10 * windowWidth / 12, windowHeight);
   myCanvas.parent('sketch-holder');
 
   theme = {
@@ -15,11 +15,21 @@ function setup() {
     emptyColor: color(30, 30, 30),
     strokeSize: 1,
   };
+
   imageMode(CORNER);
   frameRate(60);
   noSmooth();
   noStroke();
-  // background(theme.bgColor);
+
+  start();
+};
+
+
+function start() {
+  myCanvas.clear();
+  gameoflife = new GameOfLife(options);
+  pauseButton.style.display = 'none';
+  playButton.style.display = 'inline';
   gameoflife.initializeGame();
 }
 
@@ -28,25 +38,25 @@ function windowResized() {
   resizeCanvas(maxDimension, maxDimension);
 
   gameoflife.myGrid.cellSize = height / options.globalSize;
-  background(theme.bgColor);
-  gameoflife.myGrid.drawAllGrid();
-}
+  gameoflife.myGrid.initializeBuffers();
+  gameoflife.printBufferBackground();
+};
 
 function draw() {
-  let fpsControl = frameCount % options.slowSize;
+  let fpsControl = frameCount % options.slowFactor;
   if (gameoflife.running && fpsControl == 0) {
-    if (options.withInter) {
+    if (options.withInterState) {
       gameoflife.runSimWithInter();
     } else {
       gameoflife.runSimNoInter();
     }
   }
-}
-
+};
 
 function setPause() {
   gameoflife.running = !gameoflife.running;
-}
+  switchPlayPause();
+};
 
 // function mouseClicked() {
 //   gameoflife.grid.readClick();
