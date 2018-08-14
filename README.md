@@ -10,9 +10,10 @@ https://cocokhaern.github.io/p5_gameOfLife/
 
 ### TODO :
 * mouse drawing
-* add parameters to the navbar (size, inter-state or not, loop mode or not, color themes, life and death conditions)
-* improve responsive and control on phone screen
+* add other parameters to the navbar (inter-state or not, color themes...)
+* pixel mode instead of bufferImage for big sizes
 
 
 ### LATER :
+* improve responsive and control on phone screen
 * Try to implement 3D mode

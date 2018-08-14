@@ -23,7 +23,7 @@ class GameOfLife {
     let globSize = this.options.globalSize;
     switch (this.options.gridType) {
       case "hexa":
-        return new GridHexa(globSize, globSize, ceil((height / (globSize + 0.5)) * (2 / sqrt(3))));
+        return new GridHexa(globSize, globSize, ceil((height / (globSize)) * (2 / sqrt(3))));
       case "original":
         return new GridSquare(globSize, globSize, ceil(height / globSize));
       default:
